@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <div id="wrapper" [ngClass]="{ toggled: appService.hideSideNav }">
+      <app-topandsidenav
+        [avatar]="avatar"
+        [userId]="userId"
+      ></app-topandsidenav>
+      <section id="content-wrapper">
+        <h4>User Profile</h4>
+        <div class="card" *ngIf="userDetails">
+          <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#000"
+            type="ball-clip-rotate-multiple"
+            [fullScreen]="false"
+          ></ngx-spinner>
+          <img
+            src="{{ userDetails?.avatar }}"
+            alt="{{ userDetails?.firstName }}"
+            style="width: 100%;"
+          />
+          <h1>{{ userDetails?.firstName }} {{ userDetails?.lastName }}</h1>
+          <p class="title">User ID {{ userDetails?.userId }}</p>
+          <p><strong class="pr-2">Email</strong> {{ userDetails?.email }}</p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

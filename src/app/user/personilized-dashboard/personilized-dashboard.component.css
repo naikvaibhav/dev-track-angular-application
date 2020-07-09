@@ -1,0 +1,190 @@
+/*applying css for the main content inside the component*/
+#wrapper {
+  padding-left: 0;
+  transition: all 0.5s ease;
+  position: relative;
+}
+:host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+:host ::ng-deep #wrapper.toggled #navbar-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+#content-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #e4e9f5;
+  position: absolute;
+  padding: 15px;
+}
+#wrapper.toggled #content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/*start of media queries*/
+@media (min-width: 992px) {
+  #wrapper {
+    padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper datatable-scroller {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #wrapper {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 250px;
+  }
+}
+
+@media (max-width: 767px) {
+  #wrapper {
+    padding-left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+    margin-top: 8%;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: fixed;
+    margin-right: 250px;
+  }
+}
+/*end of media queries*/
+
+/*modern css for dashboard cards*/
+.overviewCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #fff;
+  transform: translateY(0);
+  transition: all 0.3s;
+  margin-bottom: 10px;
+}
+.overviewCard-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  font-size: 21px;
+  color: #fff;
+}
+.overviewCard-icon--completed {
+  background-color: #27ae60;
+}
+.overviewCard-icon--inprogress {
+  background-color: #e67e22;
+}
+.overviewCard-icon--totalIssues {
+  background-color: #e74c3c;
+}
+.overviewCard-icon--todo {
+  background-color: #af64cc;
+}
+.overviewCard-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.overviewCard-title {
+  font-size: 18px;
+  color: #000;
+  margin: 0;
+}
+.overviewCard-subtitle {
+  margin: 2px;
+  color: #777;
+}
+.overviewCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

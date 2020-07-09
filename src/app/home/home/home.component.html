@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- ======= Start header area=========== -->
+    <header class="header_area">
+      <div class="main-menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand">DEV TRACK</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/home']"
+                  routerLinkActive="active"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/login']">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/signup']">Signup</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- ======= End header area=========== -->
+
+    <!--=======start main area============-->
+    <main class="site-main">
+      <!--=======start banner area============-->
+      <section class="site-banner">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-12 site-title">
+              <h1 class="title-text">Dev Track</h1>
+              <p>
+                An applicaton to keep track of issues encountered during testing
+                and development
+              </p>
+              <div class="site-buttons">
+                <div class="d-flex flex-row flex-wrap">
+                  <button
+                    type="button"
+                    class="btn btn-animated mr-4"
+                    [routerLink]="['/login']"
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-animated"
+                    [routerLink]="['/signup']"
+                  >
+                    Signup
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 banner-image">
+              <img
+                src="../assets/images/undraw_bug_fixing_oc7a.svg"
+                class="img-fluid"
+                alt="issue-tracking"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--=======end banner area============-->
+    </main>
+    <!--=======end main area============-->
+  </body>
+</html>

@@ -1,0 +1,121 @@
+#sidebar-wrapper {
+  z-index: 500;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: linear-gradient(57deg, #c03546, #f26d5b) !important;
+  transition: all 0.5s ease;
+}
+
+.sidebar-brand {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  text-align: center;
+  padding: 20px 0;
+}
+.sidebar-brand h2 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 19px;
+  color: #fff;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 75px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sidebar-nav > li > a {
+  line-height: 48px;
+  padding: 10px 10px 10px 20px;
+}
+.sidebar-nav > li a {
+  display: block;
+  text-decoration: none;
+  color: #f5f5f5;
+  font-weight: 400;
+  font-size: 1em;
+  transition: all 0.4s;
+}
+.sidebar-nav > li a.active {
+  border-left: 4px solid#fff;
+  padding: 10px 0px 10px 16px;
+  /* color: #23b4d4; */
+  background: #f26d5b;
+  color: #fff;
+}
+
+.sidebar-nav > li > a:not(.active):hover {
+  transform: translateY(-1px);
+  background: #f26d5b;
+  text-decoration: none;
+}
+.sidebar-nav > li.active > a {
+  text-decoration: none;
+  color: #fff;
+}
+.sidebar-nav > li > a i {
+  font-size: 24px;
+  width: 60px;
+}
+
+#navbar-wrapper {
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+}
+
+#navbar-wrapper .navbar {
+  border-width: 0 0 0 0;
+  background: linear-gradient(57deg, #f26d5b, #c03546) !important;
+  font-size: 24px;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+#sidebar-toggle {
+  color: #fff;
+  border: none !important;
+  outline: none !important;
+  font-size: 1.4rem;
+}
+
+@media (min-width: 992px) {
+  #sidebar-wrapper {
+    width: 250px;
+  }
+  #navbar-wrapper {
+    position: relative;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #sidebar-wrapper {
+    width: 60px;
+  }
+  #navbar-wrapper {
+    position: relative;
+  }
+}
+
+@media (max-width: 767px) {
+  #sidebar-wrapper {
+    width: 0;
+  }
+  #navbar-wrapper {
+    position: relative;
+  }
+}
+
+/*giving custom color to svg*/
+.filter-white {
+  filter: invert(97%) sepia(0%) saturate(2033%) hue-rotate(124deg)
+    brightness(102%) contrast(96%);
+}

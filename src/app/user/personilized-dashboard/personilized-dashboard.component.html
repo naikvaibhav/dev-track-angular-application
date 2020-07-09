@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <div id="wrapper" [ngClass]="{ toggled: appService.hideSideNav }">
+      <!-- ======= Start of Top and side nav component=========== -->
+      <app-topandsidenav
+        [avatar]="avatar"
+        [userId]="userId"
+      ></app-topandsidenav>
+      <!-- ======= End of Top and side nav component=========== -->
+
+      <section id="content-wrapper">
+        <h2 class="content-title py-4">
+          Dashboard <span class="text-muted">(Issues assigned to me)</span>
+        </h2>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-xs-12">
+            <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#000"
+              type="ball-clip-rotate-multiple"
+              [fullScreen]="false"
+            ></ngx-spinner>
+            <div class="row" *ngIf="(counts | keyvalue)?.length">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="overviewCard">
+                  <div class="overviewCard-icon overviewCard-icon--completed">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="overviewCard-description">
+                    <h3 class="overviewCard-title">
+                      <strong>Completed issues</strong>
+                    </h3>
+                    <p class="overviewCard-subtitle">{{ counts?.completed }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="overviewCard">
+                  <div class="overviewCard-icon overviewCard-icon--inprogress">
+                    <i class="fa fa-spinner"></i>
+                  </div>
+                  <div class="overviewCard-description">
+                    <h3 class="overviewCard-title">
+                      <strong>In progress issues</strong>
+                    </h3>
+                    <p class="overviewCard-subtitle">
+                      {{ counts?.inprogress }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="overviewCard">
+                  <div class="overviewCard-icon overviewCard-icon--todo">
+                    <i class="fa fa-tasks"></i>
+                  </div>
+                  <div class="overviewCard-description">
+                    <h3 class="overviewCard-title">
+                      <strong>To-Do issues</strong>
+                    </h3>
+                    <p class="overviewCard-subtitle">{{ counts?.todo }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="overviewCard">
+                  <div class="overviewCard-icon overviewCard-icon--totalIssues">
+                    <i class="fa fa-bug"></i>
+                  </div>
+                  <div class="overviewCard-description">
+                    <h3 class="overviewCard-title">
+                      <strong>Total issues</strong>
+                    </h3>
+                    <p class="overviewCard-subtitle">
+                      {{ counts?.totalIssues }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-primary" (click)="createIssue()">
+          Create
+        </button>
+        <div class="row">
+          <div class="col-xs-12 col-lg-12 col-xl-12">
+            <input
+              type="text"
+              style="
+                padding: 8px;
+                margin: 15px auto;
+                margin-left: 2px;
+                width: 30%;
+              "
+              placeholder="Type to filter the name column..."
+              (keyup)="updateFilter($event)"
+            />
+            <ngx-datatable
+              #myTable
+              class="material"
+              [rows]="rows"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="65"
+              [scrollbarV]="false"
+              [scrollbarH]="true"
+              [sorts]="[{ prop: '[reporter, name, date]', dir: 'desc' }]"
+              [limit]="10"
+            >
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-selectedCount="selectedCount"
+                  let-curPage="curPage"
+                  let-offset="offset"
+                  let-isVisible="isVisible"
+                >
+                  <datatable-pager
+                    [pagerLeftArrowIcon]="'datatable-icon-left'"
+                    [pagerRightArrowIcon]="'datatable-icon-right'"
+                    [pagerPreviousIcon]="'datatable-icon-prev'"
+                    [pagerNextIcon]="'datatable-icon-skip'"
+                    [page]="curPage"
+                    [size]="pageSize"
+                    [count]="rowCount"
+                    [hidden]="!(rowCount / pageSize > 1)"
+                    (change)="table.onFooterPage($event)"
+                  >
+                  </datatable-pager>
+                </ng-template>
+              </ngx-datatable-footer>
+
+              <ngx-datatable-column name="Name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.issueName }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Status">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span
+                    class="badge badge-warning"
+                    *ngIf="row.status == 'inprogress'"
+                    >{{ row?.status }}</span
+                  >
+                  <span
+                    class="badge badge-success"
+                    *ngIf="row.status == 'completed'"
+                    >{{ row?.status }}</span
+                  >
+                  <span
+                    class="badge badge-danger"
+                    *ngIf="row.status == 'todo'"
+                    >{{ row?.status }}</span
+                  >
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Reporter">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.reporter.firstName }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Date">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row?.issueReportedOn | date }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Edit/View">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="viewIssue(row.issueId)"
+                    style="border-radius: 18px;"
+                  >
+                    View
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,272 @@
+/*applying css for the main content inside the component*/
+#wrapper {
+  padding-left: 0;
+  transition: all 0.5s ease;
+  position: relative;
+}
+:host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+:host ::ng-deep #wrapper.toggled #navbar-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+#content-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #e4e9f5;
+  position: absolute;
+  padding: 15px;
+}
+#wrapper.toggled #content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/*start of media queries*/
+@media (min-width: 992px) {
+  #wrapper {
+    padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 60px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #wrapper {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 250px;
+  }
+}
+
+@media (max-width: 767px) {
+  #wrapper {
+    padding-left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+    margin-top: 8%;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: fixed;
+    margin-right: 250px;
+  }
+}
+
+/*image preview*/
+.img-wrap {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+}
+.img-wrap .close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 100;
+  background-color: #fff;
+  padding: 5px 2px 2px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+}
+.img-wrap:hover .close {
+  opacity: 1;
+}
+
+.bottom-border {
+  border-bottom: 1.3px groove #f6ea8c;
+}
+
+/*chat message css*/
+.chat-history {
+  padding: 2em 2em 1.42em;
+  border-bottom: 0.15em solid white;
+  overflow-y: scroll;
+  height: 40vh;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.chat-history .message {
+  color: white;
+  padding: 0.5em 1.42em;
+  line-height: 1.9em;
+  font-size: 1.1em;
+  border-radius: 7px;
+  margin-bottom: 2em;
+  width: 90%;
+  position: relative;
+}
+
+.chat-history .message:after {
+  bottom: 100%;
+  left: 7%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-width: 0.8em;
+  margin-left: -0.8em;
+  margin-bottom: 2em;
+}
+
+.chat-history .message-data {
+  margin-bottom: 1em;
+}
+
+.chat-history .message-data-time {
+  color: #a8aab1;
+  padding-left: 0.4em;
+}
+
+.chat-history .other-message {
+  background: #94c2ed;
+}
+
+.chat-history .other-message:after {
+  left: 90%;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.8em 1.42em;
+  margin-bottom: 0.8em;
+  border-radius: 5px;
+  resize: none;
+}
+
+li {
+  list-style: none;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.online,
+.offline,
+.me,
+.warning {
+  margin-right: 3px;
+  font-size: 0.8em;
+}
+
+.online {
+  color: #86bb71;
+}
+
+.offline {
+  color: #e38968;
+}
+
+.me {
+  color: #94c2ed;
+}
+
+.chat-history .my-message {
+  background: #86bb71;
+}

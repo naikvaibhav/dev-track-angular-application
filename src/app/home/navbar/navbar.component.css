@@ -1,0 +1,32 @@
+/*navbar*/
+.header_area {
+  background: linear-gradient(57deg, #f26d5b, #c03546);
+}
+.navbar-brand {
+  padding: 0 2rem 0 5rem;
+  color: #fff !important;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.header_area .main-menu .nav-item .nav-link {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 1rem;
+}
+
+.navbar-toggler {
+  color: #fff;
+  border: none !important;
+  outline: none !important;
+}
+.navbar-toggler .fa {
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.header_area .main-menu .navbar-nav a.active {
+  color: #faee1c;
+}

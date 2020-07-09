@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <div id="wrapper" [ngClass]="{ toggled: appService.hideSideNav }">
+      <app-topandsidenav
+        [avatar]="avatar"
+        [userId]="userId"
+        [issueId]="issueId"
+      ></app-topandsidenav>
+      <section id="content-wrapper">
+        <div class="container py-3">
+          <h2>Issue</h2>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="card">
+                <ngx-spinner
+                  bdColor="rgba(51,51,51,0.8)"
+                  size="medium"
+                  color="#000"
+                  type="ball-clip-rotate-multiple"
+                  [fullScreen]="false"
+                ></ngx-spinner>
+                <div class="card-body">
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      font-size: 18px;
+                      cursor: pointer;
+                    "
+                  >
+                    <span
+                      class="fa-stack fa-lg icon-background"
+                      (click)="goBack()"
+                    >
+                      <i class="fa fa-circle-thin fa-stack-2x"></i>
+                      <i class="fa fa-angle-left fa-stack-1x"></i>
+                    </span>
+                  </div>
+                  <form name="form" #issueForm="ngForm" *ngIf="currentIssue">
+                    <div class="form-group mt-2">
+                      <label for="purpose">Issue Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="issueName"
+                        [(ngModel)]="currentIssue.issueName"
+                        #inputIssueName="ngModel"
+                        required
+                        autofocus
+                      />
+                      <div
+                        *ngIf="
+                          inputIssueName.invalid &&
+                          (inputIssueName.dirty || inputIssueName.touched)
+                        "
+                        class="notifyError"
+                      >
+                        <div *ngIf="inputIssueName.errors.required">
+                          Please enter the issue name
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="location">Description</label>
+                      <editor
+                        name="issueDesp"
+                        [(ngModel)]="currentIssue.issueDescription"
+                        #inputIssueDesp="ngModel"
+                        required
+                      ></editor>
+
+                      <div
+                        *ngIf="
+                          inputIssueDesp.invalid &&
+                          (inputIssueDesp.dirty || inputIssueDesp.touched)
+                        "
+                        class="notifyError"
+                      >
+                        <div *ngIf="inputIssueDesp.errors.required">
+                          Please enter the issue description
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6 col-sm-12">
+                        <label
+                          >Assignee :
+                          <img
+                            [src]="currentIssue.assignee.avatar"
+                            alt="profile pic"
+                            width="25"
+                            class="rounded-circle"
+                          />
+                          {{ currentIssue.assignee.firstName }}</label
+                        >
+                      </div>
+
+                      <div class="form-group col-md-6 col-sm-12">
+                        <a href="javascript:" (click)="activateChangeAssign()"
+                          >Change assignee</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="form-row" *ngIf="changeAssignee">
+                      <div class="form-group col-md-12 col-sm-12">
+                        <label for="userRole">Assign to</label>
+                        <select
+                          id="userRole"
+                          class="form-control"
+                          [(ngModel)]="selectAssignee"
+                          #assignee="ngModel"
+                          name="selectAssignee"
+                          required
+                        >
+                          <option
+                            *ngFor="let user of allUsers"
+                            [value]="user._id"
+                            >{{ user.firstName }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col">
+                        <label
+                          >Reporter :
+                          <img
+                            [src]="currentIssue.reporter.avatar"
+                            alt="profile pic"
+                            width="25"
+                            class="rounded-circle"
+                          />
+                          {{ currentIssue.reporter.firstName }}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-sm-1 col-form-label">Status</label>
+                      <div class="col-sm-11">
+                        <select
+                          id="inputStatus"
+                          class="form-control"
+                          [(ngModel)]="currentIssue.status"
+                          #category="ngModel"
+                          name="selectedIssueStatus"
+                        >
+                          <option
+                            *ngFor="let status of statusName"
+                            [value]="status.name"
+                            >{{ status.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row py-3">
+                      <div class="col-sm-12 col-md-6 mb-2">
+                        <button
+                          class="btn btn-outline-primary"
+                          (click)="becomeWatcher()"
+                          *ngIf="!isWatcher"
+                        >
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                          Watch
+                        </button>
+                        <a
+                          href="javascript:"
+                          *ngIf="isWatcher"
+                          (click)="removeWatcher()"
+                        >
+                          Stop watching
+                        </a>
+                      </div>
+                      <div class="col-sm-12 col-md-6 mb-2">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseExample"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                        >
+                          <i class="fa fa-eye fa-1.2x" aria-hidden="true"></i>
+                          Watchers of issue
+                        </button>
+                        <div
+                          class="collapse"
+                          id="collapseExample"
+                          *ngIf="watcherList"
+                        >
+                          <div
+                            class="card-body"
+                            *ngFor="let watcher of watcherList"
+                          >
+                            {{ watcher.watcher.firstName }}
+                          </div>
+                        </div>
+                        <div
+                          class="collapse"
+                          id="collapseExample"
+                          *ngIf="!watcherList"
+                        >
+                          <div class="card-body">
+                            No watcher is added yet
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <label class="mr-3 mt-1">Attachments</label>
+                      <div class="form-group">
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            id="file"
+                            multiple
+                            (change)="fileAdded($event)"
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="customFile"
+                          ></label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="currentIssue.attachments.length > 0">
+                      <h6>Uploaded files</h6>
+                      <div class="scroll-container" style="overflow: auto;">
+                        <div
+                          class="img-wrap"
+                          *ngFor="
+                            let url of currentIssue.attachments;
+                            let indexOfelement = index
+                          "
+                        >
+                          <span
+                            class="close"
+                            (click)="deleteImage(url, indexOfelement)"
+                            >&times;</span
+                          >
+                          <img [src]="url" width="200" style="margin: 3px;" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="img-wrap" *ngFor="let url of selectedFiles">
+                      <h6>Attachements to be uploaded</h6>
+                      <span class="close" (click)="closeImage(url)"
+                        >&times;</span
+                      >
+                      <img
+                        [src]="url"
+                        width="200"
+                        data-id="123"
+                        style="margin: 3px;"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      (click)="onImageUpload()"
+                      [disabled]="!issueForm.dirty"
+                      class="btn btn-outline-success btn-block loginBtn mt-2"
+                    >
+                      Edit Issue
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Comments section-->
+          <div class="row">
+            <div class="col">
+              <div class="card my-4">
+                <div class="card-body">
+                  <p>Comments section</p>
+
+                  <div class="form-group">
+                    <label for="location">Add a comment</label>
+                    <textarea
+                      placeholder="Type here to post your comment........."
+                      class="form-control mb-2"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
+                      name="issueComments"
+                      [(ngModel)]="issueComments"
+                      #inputIssueComments="ngModel"
+                    ></textarea>
+                    <button
+                      class="btn btn-primary mr-2"
+                      (click)="saveComment()"
+                    >
+                      <i class="fa fa-send"></i> Post
+                    </button>
+                    <button
+                      class="btn btn-danger mr-2"
+                      (click)="cancelComment()"
+                    >
+                      <i class="fa fa-close"></i> Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                class="btn btn-primary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample2"
+                aria-expanded="false"
+                aria-controls="collapseExample2"
+              >
+                <i class="fa fa-comments-o fa-1x" aria-hidden="true"></i>
+                View posted comments
+              </button>
+              <div
+                class="collapse pt-2"
+                id="collapseExample2"
+                *ngIf="commentsArray"
+              >
+                <div
+                  #scrollMe
+                  [scrollTop]="scrollToChatTop ? 0 : scrollMe.scrollHeight"
+                  class="chat-history"
+                  *ngIf="commentsArray"
+                >
+                  <ul>
+                    <li class="clearfix" *ngFor="let comment of commentsArray">
+                      <div
+                        class="message-data"
+                        [ngClass]="{
+                          'align-right': comment?.commentedBy.userId == userId
+                        }"
+                      >
+                        <span class="message-data-time"
+                          >{{ comment?.commentedOn | date: "medium" }}
+                        </span>
+
+                        <span
+                          class="message-data-name floatLeft"
+                          *ngIf="comment?.commentedBy.userId != userId"
+                        >
+                          <img
+                            *ngIf="comment?.commentedBy.userId != userId"
+                            [src]="comment?.commentedBy.avatar"
+                            alt="profile pic"
+                            width="20"
+                            class="rounded-circle"
+                          />
+                          {{ comment?.commentedBy.firstName }}</span
+                        >
+
+                        <img
+                          [src]="comment?.commentedBy.avatar"
+                          alt="profile pic"
+                          width="20"
+                          class="rounded-circle"
+                          *ngIf="comment?.commentedBy.userId == userId"
+                        />
+
+                        <span
+                          class="message-data-name"
+                          *ngIf="comment?.commentedBy.userId == userId"
+                          >{{ comment?.commentedBy.firstName }}</span
+                        >
+                      </div>
+                      <div
+                        class="message"
+                        [ngClass]="{
+                          'float-right other-message':
+                            comment?.commentedBy.userId == userId,
+                          'my-message': comment?.commentedBy.userId != userId
+                        }"
+                      >
+                        {{ comment?.comment }}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="collapse"
+                id="collapseExample2"
+                *ngIf="!commentsArray"
+              >
+                <div class="card-body">
+                  No comments are posted yet
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end Comments section-->
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

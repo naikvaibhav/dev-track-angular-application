@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
+  <body>
+    <!-- ======= Start header area=========== -->
+    <app-navbar></app-navbar>
+    <!-- ======= End header area=========== -->
+
+    <!-- ======= Start main area=========== -->
+
+    <div class="section">
+      <div class="container loginForm">
+        <div class="card pb-4">
+          <p class="card-heading">
+            Login
+          </p>
+          <div class="card-body">
+            <form name="form" #loginForm="ngForm" (ngSubmit)="loginFunction()">
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend2"
+                      ><img src="./../../../assets/images/user.svg" alt=""
+                    /></span>
+                  </div>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                    [(ngModel)]="email"
+                    [ngModelOptions]="{ standalone: true }"
+                    #inputEmail="ngModel"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    required
+                    autofocus
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    inputEmail.invalid &&
+                    (inputEmail.dirty || inputEmail.touched)
+                  "
+                  class="notifyError"
+                >
+                  <div *ngIf="inputEmail.errors.required">
+                    Please enter the email
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend2"
+                      ><img src="./../../../assets/images/lock.svg" alt=""
+                    /></span>
+                  </div>
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id="password"
+                    [(ngModel)]="password"
+                    [ngModelOptions]="{ standalone: true }"
+                    #inputPassword="ngModel"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+
+                <div
+                  *ngIf="
+                    inputPassword.invalid &&
+                    (inputPassword.dirty || inputPassword.touched)
+                  "
+                  class="notifyError"
+                >
+                  Please enter the password
+                  <div *ngIf="loginForm.controls['password']?.errors?.required">
+                    Please enter the password
+                  </div>
+                </div>
+              </div>
+
+              <div class="forgotPassword">
+                <a [routerLink]="['/forgotPassword']">Forgot Password?</a>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-outline-success btn-block loginBtn"
+              >
+                Login
+              </button>
+              <div class="signUpBtn">
+                <a [routerLink]="['/signup']">Not a member? Signup</a>
+              </div>
+            </form>
+
+            <span class="bottom-border pt-2">OR</span>
+            <button
+              class="btn btn-md btn-block mt-3"
+              role="button"
+              style="text-transform: none;"
+              (click)="signInWithGoogle()"
+            >
+              <img
+                width="20px"
+                style="margin-bottom: 3px; margin-right: 5px;"
+                alt="Google sign-in"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+              />
+              Login with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ======= End main area=========== -->
+  </body>
+</html>

@@ -1,0 +1,71 @@
+/*body background*/
+body {
+  background: linear-gradient(57deg, #c03546, #f26d5b);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 82%, 0% 100%);
+  min-height: 100vh;
+}
+
+/*navbar*/
+.navbar-brand {
+  padding: 0 2rem 0 5rem;
+  color: #fff !important;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.header_area .main-menu .nav-item .nav-link {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 1rem;
+}
+
+.navbar-toggler {
+  color: #fff;
+  border: none !important;
+  outline: none !important;
+}
+.navbar-toggler .fa {
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.header_area .main-menu .navbar-nav a.active {
+  color: #f6ea8c;
+}
+
+/*buttons*/
+.btn {
+  border-radius: 0px;
+  padding: 0.8rem 2.2rem;
+  text-transform: uppercase;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: #fdfdfd;
+  transition: all 0.2s;
+}
+.btn-animated:hover {
+  transform: translateY(-3px);
+}
+.btn-animated:active {
+  transform: translateY(-1px);
+}
+
+/*Banner area*/
+.site-main .site-banner .site-title h1 {
+  padding-top: 35%;
+  font-weight: 500;
+  color: #fff;
+}
+
+.site-main .site-banner .site-title p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.site-main .site-banner .banner-image > img {
+  padding: 7rem 0;
+  width: 90rem;
+}
+/*End Banner area*/

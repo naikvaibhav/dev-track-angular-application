@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <div id="wrapper" [ngClass]="{ toggled: appService.hideSideNav }">
+      <app-topandsidenav
+        [avatar]="avatar"
+        [userId]="userId"
+      ></app-topandsidenav>
+      <section id="content-wrapper">
+        <div class="container py-3">
+          <h2>Create</h2>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      font-size: 18px;
+                      cursor: pointer;
+                    "
+                  >
+                    <span
+                      class="fa-stack fa-lg icon-background"
+                      (click)="goBack()"
+                    >
+                      <i class="fa fa-circle-thin fa-stack-2x"></i>
+                      <i class="fa fa-angle-left fa-stack-1x"></i>
+                    </span>
+                  </div>
+                  <form
+                    name="form"
+                    #issueForm="ngForm"
+                    (ngSubmit)="onImageUpload()"
+                  >
+                    <div class="form-group mt-2">
+                      <label for="purpose">Issue Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="issueName"
+                        placeholder="Enter the issue name"
+                        [(ngModel)]="issueName"
+                        #inputIssueName="ngModel"
+                        required
+                        autofocus
+                      />
+                      <div
+                        *ngIf="
+                          inputIssueName.invalid &&
+                          (inputIssueName.dirty || inputIssueName.touched)
+                        "
+                        class="notifyError"
+                      >
+                        <div *ngIf="inputIssueName.errors.required">
+                          Please enter the issue name
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="location">Description</label>
+                      <editor
+                        name="issueDesp"
+                        [(ngModel)]="issueDescription"
+                        #inputIssueDesp="ngModel"
+                        required
+                      ></editor>
+
+                      <div
+                        *ngIf="
+                          inputIssueDesp.invalid &&
+                          (inputIssueDesp.dirty || inputIssueDesp.touched)
+                        "
+                        class="notifyError"
+                      >
+                        <div *ngIf="inputIssueDesp.errors.required">
+                          Please enter the issue description
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12 col-sm-12">
+                        <label for="userRole">Assign to</label>
+                        <select
+                          id="userRole"
+                          class="form-control"
+                          [(ngModel)]="selectedAssignee"
+                          #country="ngModel"
+                          name="selectedAssignee"
+                          required
+                        >
+                          <option
+                            *ngFor="let user of allUsers"
+                            [value]="user._id"
+                            >{{ user.firstName }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <label class="mr-3 mt-1">Attachments</label>
+                      <div class="form-group">
+                        <div class="custom-file">
+                          <input
+                            type="file"
+                            class="custom-file-input"
+                            name="uploadedImages"
+                            id="file"
+                            multiple
+                            (change)="fileAdded($event)"
+                          />
+                          <label
+                            class="custom-file-label"
+                            for="customFile"
+                          ></label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="img-wrap" *ngFor="let url of selectedFiles">
+                      <span class="close" (click)="closeImage(url)"
+                        >&times;</span
+                      >
+                      <img
+                        [src]="url"
+                        width="200"
+                        data-id="123"
+                        style="margin: 3px;"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      [disabled]="!issueForm.valid"
+                      class="btn btn-outline-success btn-block loginBtn"
+                    >
+                      Add Issue
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

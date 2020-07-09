@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "~font-awesome/css/font-awesome.css";
+* {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*hide the notification appearing on the text editor*/
+.tox-notification {
+  display: none !important;
+}

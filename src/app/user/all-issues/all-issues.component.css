@@ -1,0 +1,137 @@
+/*applying css for the main content inside the component*/
+#wrapper {
+  padding-left: 0;
+  transition: all 0.5s ease;
+  position: relative;
+}
+:host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+:host ::ng-deep #wrapper.toggled #navbar-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+#content-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #e4e9f5;
+  position: absolute;
+  padding: 15px;
+}
+#wrapper.toggled #content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/*start of media queries*/
+@media (min-width: 992px) {
+  #wrapper {
+    padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -190px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 60px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 60px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #wrapper {
+    padding-left: 60px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  :host ::ng-deep #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: relative;
+    margin-right: 250px;
+  }
+}
+
+@media (max-width: 767px) {
+  #wrapper {
+    padding-left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper {
+    position: absolute;
+    margin-right: -250px;
+  }
+
+  #wrapper.toggled #content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+    margin-top: 8%;
+  }
+
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+
+  #content-wrapper {
+    position: relative;
+    left: 0;
+  }
+
+  :host ::ng-deep #wrapper.toggled #navbar-wrapper,
+  #wrapper.toggled #content-wrapper {
+    position: fixed;
+    margin-right: 250px;
+  }
+}
+
+.card {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background: #fff;
+}
