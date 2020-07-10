@@ -62,20 +62,15 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("destroy called", this.subscription.unsubscribe);
     this.subscription.unsubscribe();
     this.subscription2.unsubscribe();
     this.subscription3.unsubscribe();
   }
 
   updateFilter(event) {
-    console.log("key event", event.target.value);
     const val = event.target.value.toLowerCase();
-    console.log("temp", this.temp);
     // filter our data
     let temp = this.temp.filter(function (d) {
-      console.log("d", d);
-      console.log(d.issueName.toLowerCase().indexOf(val) !== -1 || !val);
       return d.issueName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
@@ -96,7 +91,6 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
   public getAllIssuesAssignedToMe() {
     this.appService.getAllIssuesAssignedToMe(this.localStorage._id).subscribe(
       (apiResponse) => {
-        console.log("Assigned issues", apiResponse);
         if (apiResponse.data) {
           this.assignedIssues = apiResponse.data;
           this.temp = [...apiResponse.data];
@@ -133,20 +127,15 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
   };
 
   public getAllConnectedUsers: any = () => {
-    console.log("getAll connected users");
-    this.socketService.getAllConnectedUserList().subscribe((data) => {
-      console.log("getting the connnected users", data);
-    });
+    this.socketService.getAllConnectedUserList().subscribe((data) => {});
   };
 
   public getMessageFromAdmin: any = () => {
-    console.log("getMessageFromAdmin is called once");
     this.subscription = this.socketService
       .meetingNotification(this.userId)
       .subscribe((data) => {
         this.toastr.info(`Informing assignee: ${data.message}`);
       }); //end of subscribe
-    console.log("sub", this.subscription);
   }; //end get message from a user
 
   public informReporteAboutIssueUpdate: any = () => {
@@ -154,11 +143,9 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
       .informReporteAboutIssueUpdate()
       .subscribe((data) => {
         if (data.changesMade.reporter.userId == this.userId) {
-          console.log("Reporter is present");
           this.toastr
             .info(`Informing reporter: ${data.message}`)
             .onTap.subscribe((action) => {
-              console.log("Action", action);
               this.router.navigate([
                 `user/${this.userId}/issue/${data.issueId}`,
               ]);
@@ -171,7 +158,6 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
     this.subscription3 = this.socketService
       .informWatcherAboutIssueUpdate()
       .subscribe((data) => {
-        console.log("informWatcherAboutIssueUpdate data", data);
         data.changesMade.watchers.forEach((element) => {
           if (
             element._id == this.appService.getUserInfoFromLocalStorage()._id
@@ -181,7 +167,6 @@ export class PersonilizedDashboardComponent implements OnInit, OnDestroy {
                 disableTimeOut: true,
               })
               .onTap.subscribe((action) => {
-                console.log("Action", action);
                 this.router.navigate([
                   `user/${this.userId}/issue/${data.issueId}`,
                 ]);

@@ -107,7 +107,7 @@
                 margin-left: 2px;
                 width: 30%;
               "
-              placeholder="Type to filter the name column..."
+              placeholder="Type to filter the issue name/status"
               (keyup)="updateFilter($event)"
             />
             <ngx-datatable
@@ -121,7 +121,7 @@
               [scrollbarV]="false"
               [scrollbarH]="true"
               [sorts]="[{ prop: '[reporter, name, date]', dir: 'desc' }]"
-              [limit]="10"
+              [limit]="5"
             >
               <ngx-datatable-footer>
                 <ng-template

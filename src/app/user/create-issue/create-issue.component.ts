@@ -47,7 +47,6 @@ export class CreateIssueComponent implements OnInit {
         reader.onload = (event: any) => {
           // called once readAsDataURL is completed
           this.selectedFiles.push(event.target["result"]);
-          console.log(this.selectedFiles);
         };
       }
     }

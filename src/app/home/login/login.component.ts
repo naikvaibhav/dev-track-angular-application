@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log("Load user data when component is run", user);
       this.loggedIn = user != null;
     });
   }
@@ -38,18 +37,13 @@ export class LoginComponent implements OnInit {
     this.authService
       .signIn(GoogleLoginProvider.PROVIDER_ID)
       .then((userData) => {
-        console.log("userData is present");
-        console.log(userData);
         this.verifySocialIdToken(this.user);
       });
-    console.log("User", this.user);
   }
 
   verifySocialIdToken = (data) => {
-    console.log("socialId verifySocilaIdToken is called");
     this.appService.verifySocialIdToken(data).subscribe(
       (apiResponse) => {
-        console.log(apiResponse);
         if (apiResponse.status == 200) {
           if (apiResponse.data.userDetails.userRole == "admin") {
             this.router.navigate(["/admindashboard"]);
@@ -69,7 +63,6 @@ export class LoginComponent implements OnInit {
             this.toastr.success(apiResponse.message);
           }
         } else {
-          console.log(apiResponse);
           this.toastr.error(apiResponse.message);
         }
       },
@@ -100,7 +93,6 @@ export class LoginComponent implements OnInit {
     };
     this.appService.loginFunction(data).subscribe(
       (apiResponse) => {
-        console.log(apiResponse);
         if (apiResponse.status == 200) {
           if (apiResponse.data.userDetails.userRole == "admin") {
             this.router.navigate(["/admindashboard"]);
@@ -120,7 +112,6 @@ export class LoginComponent implements OnInit {
             this.toastr.success(apiResponse.message);
           }
         } else {
-          console.log(apiResponse);
           this.toastr.error(apiResponse.message);
           document.querySelector(".loginBtn").textContent = "Login";
         }

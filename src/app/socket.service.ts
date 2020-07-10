@@ -21,8 +21,8 @@ export class SocketService {
   constructor(private _http: HttpClient) {
     //connection is being created
     //that handshake
-    this.socket = io("http://localhost:3000");
-    // this.socket = io("http://apimeetup.angularweb.tech")
+    // this.socket = io("http://localhost:3000");
+    this.socket = io("http://apidevtrack.naikvaibhav.online");
     this.authToken = JSON.parse(localStorage.getItem("authToken"));
   }
 

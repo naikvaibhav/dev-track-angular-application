@@ -40,11 +40,9 @@ export class SignupComponent implements OnInit {
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.log("event.target.files[0]", event.target.files[0]);
       this.imageObj = event.target.files[0];
       reader.onload = (event) => {
         // called once readAsDataURL is completed
-        console.log("onload", event.target["result"]);
         this.url = event.target["result"];
       };
     }
@@ -66,7 +64,6 @@ export class SignupComponent implements OnInit {
       this.appService.hideLoadingSpinner();
       this.imageUrl = res["image"];
       this.imageUrl = `https://project-images-upload.s3.amazonaws.com/${this.imageUrl}`;
-      console.log(this.imageUrl);
     });
   } //end of onImageUpload
 
@@ -81,7 +78,6 @@ export class SignupComponent implements OnInit {
     document.querySelector(".signUpBtn").textContent = "Signing....";
     this.appService.signUpFunction(data).subscribe(
       (apiResponse) => {
-        console.log(apiResponse);
         if (apiResponse.status == 201) {
           this.toastr.success("Signup successful");
           setTimeout(() => {
@@ -104,5 +100,7 @@ export class SignupComponent implements OnInit {
     this.lastName = "";
     this.email = "";
     this.password = "";
+    this.imageUrl = "";
+    this.url = "";
   }; //end of cancelRegister
 }

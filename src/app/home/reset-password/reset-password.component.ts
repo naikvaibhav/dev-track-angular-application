@@ -49,8 +49,6 @@ export class ResetPasswordComponent implements OnInit {
     };
     this.appService.updatePassword(data).subscribe(
       (apiResponse) => {
-        console.log("Data posted");
-        console.log(apiResponse);
         if (apiResponse.status == 200) {
           this.toastr.success(apiResponse.message);
           setTimeout(() => {
