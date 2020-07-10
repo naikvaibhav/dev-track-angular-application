@@ -22,7 +22,7 @@ export class SocketService {
     //connection is being created
     //that handshake
     // this.socket = io("http://localhost:3000");
-    this.socket = io("http://apidevtrack.naikvaibhav.online");
+    this.socket = io("https://apidevtrack.naikvaibhav.online");
     this.authToken = JSON.parse(localStorage.getItem("authToken"));
   }
 

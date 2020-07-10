@@ -38,7 +38,7 @@ let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider(
-      "19394797597-btfag72i88oidesh6aujhmr748i26qrb.apps.googleusercontent.com"
+      "GOOGLE Client ID of your web application created in google developer console"
     ),
   },
 ]);

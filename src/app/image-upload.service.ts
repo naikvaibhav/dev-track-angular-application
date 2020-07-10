@@ -10,7 +10,7 @@ import {
 })
 export class ImageUploadService {
   // private url = "http://localhost:3000/api/v1";
-  private url = "http://apidevtrack.naikvaibhav.online/api/v1";
+  private url = "https://apidevtrack.naikvaibhav.online/api/v1";
 
   constructor(private _http: HttpClient) {}
 

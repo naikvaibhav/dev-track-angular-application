@@ -19,7 +19,7 @@ import { Signup } from "./home/signup/signup";
 })
 export class AppService {
   // private url = "http://localhost:3000/api/v1";
-  private url = "http://apidevtrack.naikvaibhav.online/api/v1";
+  private url = "https://apidevtrack.naikvaibhav.online/api/v1";
   public showSpinner: boolean = false;
 
   showLoadingSpinner() {
